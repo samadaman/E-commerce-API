@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch Table</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&family=Catamaran:wght@200&family=Dancing+Script&family=Inter:wght@100;200;300&family=Manrope:wght@300&family=Montserrat:wght@100;300&family=Nanum+Gothic&family=Open+Sans:wght@300&family=Poppins:wght@100;200&family=Raleway:wght@200&family=Roboto+Condensed&family=Rubik&family=Silkscreen&family=Source+Sans+Pro&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            padding: 5% 3% 3% 3%;
+            background-color: bisque;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        h2 {
+            color: black;
+            font-family: "Barlow", sans-serif;
+            font-size: 20px;
+            word-spacing: 0%;
+        }
+        h3 {
+            font-size: 15px;
+            font-family: "Source Sans Pro", sans-serif;
+        }
+        .flex {
+            display: flex;
+        }
+        .head {
+            padding-right: 2%;
+        }
+        p {
+            font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+            font-size: x-small;
+            color: grey;
+        }
+        .fetch {
+            background-color: white;
+            text-align: justify;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+            padding: 6%;
+            border-radius: 15px;
+        }
+        h4 {
+            font-family: "Barlow", sans-serif;
+        }
+        button {
+            background-color: blue;
+            height: 37px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            color: white;
+        }
+        button:hover {
+            background-color: rgb(75, 75, 229);
+            cursor: pointer;
+        }
+        .amazon {
+            padding-bottom: 4%;
+        }
+        select {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            margin-left: 20px;
+            font-family: "Barlow", sans-serif;
+            font-weight: bold;
+            color: rgb(71, 69, 69);
+            font-size: medium;
+        }
+        .task {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2%;
+        }
+        .task a {
+            margin-left: 20px;
+            font-family: "Barlow", sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(71, 69, 69);
+        }
+        .task a:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="task">
+        <img src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/96/null/external-amazon-an-american-multinational-technology-company-that-focuses-on-e-commerce-logo-color-tal-revivo.png" height="30" alt="Amazon Icon" />
+        <span>
+            <a href="#">All</a>
+            <select>
+                <option value="Cart">Prime</option>
+            </select>
+            <a href="#">Best Seller</a>
+        </span>
+        <a href="#">Mobiles</a>
+        <a href="#">Today's Deal</a>
+        <a href="#">Customer Services</a>
+        <a href="#">Electronics</a>
+        <a href="#">Sell</a>
+        <a href="#">Home & Kitchen</a>
+        <a href="#">Fashion</a>
+    </div>
+    <div class="container"></div>
+
+    <script>
+        async function fetchData() {
+            const url = "https://fakestoreapi.com/products";
+            const response = await fetch(url);  // Fixed spelling mistake here
+            const json = await response.json();
+            console.log(json);
+            return json;
+        }
+
+        async function renderData() {
+            const data = await fetchData();  // Renamed variable from 'fetch' to 'data' for clarity
+
+            let html = "";
+
+            data.forEach((item) => {  // Changed .map() to .forEach() as we don't need to return a new array
+                html += `
+                    <div class="fetch">
+                        <h6>${item.category}</h6>
+                    </div>
+                `;
+            });
+
+            const container = document.querySelector(".container");  // Use querySelector for better practice
+
+            container.innerHTML = html;
+        }
+
+        renderData();
+    </script>
+</body>
+</html>
